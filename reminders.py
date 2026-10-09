@@ -27,17 +27,18 @@ while applicationActive == True:
             completedReminders.clear()
 
             importArray = fileContent.split(";")
-            input(importArray)
+            importSteps = (len(importArray) -1) /2
 
-            for x in range(len(importArray)-1):
-                
+            for x in range(int(importSteps)):
+
                 reminders.append(importArray[0])
                 importArray.pop(0)
 
                 if importArray[0] == "completed":
                     completedReminders.append(True)
-                elif importArray[0] == "active": 
+                else:
                     completedReminders.append(False)
+                importArray.pop(0)
 
 
     # export todo list
