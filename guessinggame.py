@@ -1,5 +1,6 @@
 import random
 import os
+import time
 
 clear = lambda: os.system('clear')
 
@@ -9,7 +10,11 @@ guess = 11
 print("Input a random number (0-100)")
 
 while guess != target:
-    guess = int(input())
+    try:
+        guess = int(input())
+    except ValueError:
+        print("not a number!")
+        time.sleep(1)
     clear()
     if guess != target:
         print("wrong number, try again")
