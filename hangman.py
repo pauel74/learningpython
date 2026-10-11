@@ -3,6 +3,7 @@ import os # unter das os
 import random
 
 RED = "\033[31m"
+YELLOW = "\033[33m"
 GREEN = "\033[32m"
 RESET = "\033[0m"
 
@@ -17,13 +18,19 @@ def game(targetword):
 
     while True:
 
-        #print word for debugging and hearts left
+        # print word for debugging and hearts left
+        if hearts < 7:
+            print(YELLOW, end="")
+            if hearts < 4:
+                print(RED, end="")
         print("Hearts left: " + str(hearts))
+        print(RESET, end="")
         # print(targetword) # debugging
 
         # print alphabet (with colors)
         for x in range(len(alphabet)):
-
+            if x % 9 == 0:
+                print() #multiple lines of keyboard
             if alphabet[x] in guessedLetters:
                 if alphabet[x] in lettersInTargetWord:
                     print(f"{GREEN + alphabet[x]} " ,end="" + RESET)
@@ -34,7 +41,7 @@ def game(targetword):
 
 
         # prints the final word like this: __X_Y_
-        print()
+        print("\n")
         for x in range(len(targetword)):
             if lettersInTargetWord[x] in guessedLetters:
                 print(lettersInTargetWord[x] + " ", end="")
@@ -42,7 +49,7 @@ def game(targetword):
                 print("_ ", end="")
 
         # guessing
-        guessedLetters.append(input("\nYour guess: ").upper())
+        guessedLetters.append(input("\n\nYour guess: ").upper())
 
         clear()
 
@@ -52,14 +59,19 @@ def game(targetword):
         else:
             hearts = hearts -1
             if hearts == 0:
+                clear()
+                print(RED + "YOU LOST\n" + RESET)
+                print("The word was:")
+                print(YELLOW + targetword + "\n")
+                if input(RESET + "play again? [y/n] ") == "y":
+                    booting()
                 break
 
         # debugging
         # print()
         # print(guessedLetters)
         # print(rightLetters)
-        # print (lettersInTargetWord)
-
+        # print(lettersInTargetWord)
 
 # checks if there is a list with words and starts the game if so
 def booting():
