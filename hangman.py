@@ -53,9 +53,18 @@ def game(targetword):
 
         clear()
 
-        # checking
+        # checking input
+        # win and lose screen
         if guessedLetters[len(guessedLetters)-1] in lettersInTargetWord:
             rightLetters.append(guessedLetters[len(guessedLetters)-1])
+            if len(rightLetters) == len(targetword):
+                clear()
+                print(GREEN + "YOU WON\n" + RESET)
+                print("The word was:")
+                print(YELLOW + targetword + "\n")
+                if input(RESET + "play again? [y/n] ") == "y":
+                    booting()
+                break
         else:
             hearts = hearts -1
             if hearts == 0:
