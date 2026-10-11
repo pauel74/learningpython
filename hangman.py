@@ -68,10 +68,10 @@ def booting():
         with open("hangman.txt", "r", encoding="utf-8") as file:
             fileContent = file.read()
 
-        wordsHangman = fileContent.split(" ") # create array
+        wordsHangman = fileContent.split() # create array
         targetword = random.choice(wordsHangman) ## choose random array word
 
-        if len(wordsHangman)-1 == 0: # -1 because empty files always have len of 1
+        if not wordsHangman: # if not array == true == array is empty
             print("the hangman.txt file cant be empty and needs to contain at least one word")
             if input("try again? [y/n] ") == "y":
                 booting()
