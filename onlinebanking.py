@@ -1,6 +1,12 @@
 import os
 import random
 import time
+
+RED = "\033[31m"
+YELLOW = "\033[33m"
+GREEN = "\033[32m"
+RESET = "\033[0m"
+
 clear = lambda: os.system('clear')
 
 accounts = []
@@ -19,7 +25,22 @@ class Transaction:
 
 def accountInfo(accounts, id):
     print(f"\n{accounts[id].name}'s transaction history:\n")
-    print(Transaction)
+
+    print("Amount \t Reason\t\tBalance\n")
+
+    balance = accounts[id].balance
+    
+    for x in range(len(accounts[id].history)):
+        
+        if accounts[id].history[x].amount > 0:
+            print(GREEN, end="+")
+        else:
+            print(RED, end="")
+
+        print(accounts[id].history[x].amount, "\t" , accounts[id].history[x].reason, f"\t{round(balance, 2)}$" , RESET)
+        
+        balance -= accounts[id].history[x].amount
+
 
 def home(accounts):
 
@@ -59,18 +80,15 @@ def boot():
         [],
         random.randint(0,99)+((x+1)*100))
 
-
-        """
-        for x in range(random.randint(10)):
+        for x in range(random.randint(1,15)):
             newTransaction = Transaction(float(0), "")
             if random.randint(0, 1) == 1:
-                newTransaction.amount = #plus
-                newTransaction.reason = #salary, ...
+                newTransaction.amount = random.randint(0, int(newAccount.balance/5))
+                newTransaction.reason = random.choice(["salary", "interest", "dividend", "bonus\t", "refund"])
             else:
-                newTransaction.amount = #minus
-                newTransaction.reason = #groceries, rent, ...
-        """
-
+                newTransaction.amount = random.randint(int(newAccount.balance/15), int(newAccount.balance/5)) * -1
+                newTransaction.reason = random.choice(["groceries", "rent\t", "subscription", "shopping", "utilities"])
+            newAccount.history.append(newTransaction)
 
         print(f"ceated {newAccount.name} (IBAN: {newAccount.iban}) with a balance of {newAccount.balance}$")
         time.sleep(0.1)
