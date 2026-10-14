@@ -78,6 +78,12 @@ def accountInfo(accounts, id):
                     time.sleep(1)
                     accountInfo(accounts, id)
                     break
+                elif float(money) < 0:
+                    time.sleep(0.25)
+                    print(RED + f"\nYou cant just drain the other wallet" + RESET)
+                    time.sleep(1)
+                    accountInfo(accounts, id)
+                    break                
                 else:
                     time.sleep(0.25)
                     print(GREEN + f"\n{accounts[id].iban}" + RESET, end=" ")
