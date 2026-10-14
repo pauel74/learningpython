@@ -23,6 +23,13 @@ class Transaction:
         self.amount = amount
         self.reason = reason
 
+def moveBack(accounts, index): #moves every entry at given index one back so a new transaction can be addad at [0]
+    temporaryTransaction = Transaction(float(0), "")
+    accounts[index].history.append(temporaryTransaction)
+    for x in range(len(accounts[index].history)):
+        accounts[index].history[(len(accounts[index].history)-x) -1] = accounts[index].history[(len(accounts[index].history)-x) -2]
+    return accounts
+
 def accountInfo(accounts, id):
     print(f"\n{accounts[id].name}'s transaction history:\n")
     time.sleep(0.25)
@@ -80,11 +87,13 @@ def accountInfo(accounts, id):
                         print(">", end="", flush=True) # flush makes it so it shows the progress instead of just waiting 2 seconds and then printing it to the console
 
                     newTransaction = Transaction(float(money), f"{accounts[x].name}\t")
-                    accounts[id].history.append(newTransaction)
+                    accounts = moveBack(accounts, id)
+                    accounts[id].history[0] = (newTransaction)
                     accounts[id].balance -= float(money)
 
                     newTransaction = Transaction(float(money), f"{accounts[id].name}\t")    
-                    accounts[x].history.append(newTransaction)
+                    accounts = moveBack(accounts, x)
+                    accounts[x].history[0] = (newTransaction)
                     accounts[x].balance += float(money)
 
                     time.sleep(0.25)
