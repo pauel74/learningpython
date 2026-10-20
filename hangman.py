@@ -13,7 +13,7 @@ def game(targetword):
     hearts = 10
     alphabet = ascii_uppercase
     guessedLetters = []
-    rightLetters = []
+    usersRightLetters = []
     lettersInTargetWord = list(targetword)
 
     while True:
@@ -56,17 +56,46 @@ def game(targetword):
         # checking input
         # win and lose screen
         if guessedLetters[len(guessedLetters)-1] in lettersInTargetWord:
-            rightLetters.append(guessedLetters[len(guessedLetters)-1])
-            if len(rightLetters) == len(targetword):
+            if guessedLetters[len(guessedLetters)-1] in usersRightLetters: # already guessed
                 clear()
+
+            else:
+                usersRightLetters.append(guessedLetters[len(guessedLetters)-1])
+
+                gameWon = True
+                for x in range(len(targetword)):
+                    if not lettersInTargetWord[x] in guessedLetters:
+                        gameWon = False
+
+                if gameWon == True:
+                    clear()
+                    print(GREEN + "YOU WON\n" + RESET)
+                    print("The word was:")
+                    print(YELLOW + targetword + "\n")
+                    if input(RESET + "play again? [y/n] ") == "y":
+                        booting()
+                    break
+
+        elif guessedLetters[len(guessedLetters)-1] not in ascii_uppercase: # not a single letter
+            clear()
+            if guessedLetters[len(guessedLetters)-1] == targetword: # user entered target word
                 print(GREEN + "YOU WON\n" + RESET)
                 print("The word was:")
                 print(YELLOW + targetword + "\n")
                 if input(RESET + "play again? [y/n] ") == "y":
                     booting()
                 break
+
         else:
-            hearts = hearts -1
+            temp = guessedLetters[len(guessedLetters)-1]
+            guessedLetters.pop(len(guessedLetters)-1)
+
+            if temp in guessedLetters: # already guessed but not in target word
+                guessedLetters.append(temp)
+            else:
+                hearts = hearts -1 # not guessed yet
+                guessedLetters.append(temp)
+                
             if hearts == 0:
                 clear()
                 print(RED + "YOU LOST\n" + RESET)
@@ -76,11 +105,12 @@ def game(targetword):
                     booting()
                 break
 
-        # debugging
-        # print()
-        # print(guessedLetters)
-        # print(rightLetters)
-        # print(lettersInTargetWord)
+        ### debugging ###
+
+        #print()
+        #print(guessedLetters)
+        #print(usersRightLetters)
+        #print(lettersInTargetWord)
 
 # checks if there is a list with words and starts the game if so
 def booting():
