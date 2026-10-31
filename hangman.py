@@ -85,6 +85,8 @@ def game(targetword):
                 if input(RESET + "play again? [y/n] ") == "y":
                     booting()
                 break
+            else: hearts = hearts -1
+
 
         else:
             temp = guessedLetters[len(guessedLetters)-1]
