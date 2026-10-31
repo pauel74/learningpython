@@ -88,24 +88,22 @@ def accountInfo(accounts, id):
                     time.sleep(0.25)
                     print(GREEN + f"\n{accounts[id].iban}" + RESET, end=" ")
                     time.sleep(0.15)
-                    for y in range(20):
-                        time.sleep(0.1)
+                    for y in range(10):
+                        time.sleep(0.125)
                         print(">", end="", flush=True) # flush makes it so it shows the progress instead of just waiting 2 seconds and then printing it to the console
 
-                    newTransaction = Transaction(float(money), f"{accounts[x].name}\t")
                     accounts = moveBack(accounts, id)
-                    accounts[id].history[0] = (newTransaction)
+                    accounts[id].history[0] = (Transaction(-float(money), f"{accounts[x].name}\t"))
                     accounts[id].balance -= float(money)
 
-                    newTransaction = Transaction(float(money), f"{accounts[id].name}\t")    
                     accounts = moveBack(accounts, x)
-                    accounts[x].history[0] = (newTransaction)
+                    accounts[x].history[0] = (Transaction(float(money), f"{accounts[id].name}\t"))
                     accounts[x].balance += float(money)
 
                     time.sleep(0.25)
                     print(GREEN + f" {targetAccount}")
                     time.sleep(0.5)
-                    print("\nTransaction completed")
+                    print("\nTransaction completed" + RESET)
 
                     accountInfo(accounts, id)
 
