@@ -9,3 +9,4 @@ In most cases, each project serves a specific purpose:
 - ```guessinggame.py``` try/except and random
 - ```hangman.py``` nothing new, but everything is a bit more complex >:)
 - ```onlinebanking.py``` classes and objects
+- ```image_possibility_calculator.py``` basic math operations
