@@ -20,8 +20,8 @@ print("\nColor Space")
 bits = input("Bits:\t\t")
 channels = input("Channels:\t")
 
-conditionsPerPixel = 2 ** float(bits)
-conditionsPerPixel **= float(channels)
+conditionsPerPixel = 2 ** int(bits)
+conditionsPerPixel **= int(channels)
 print("\nPossible conditions per pixel: ", round(conditionsPerPixel))
 
 logConditions = totalPixels * math.log10(conditionsPerPixel)
@@ -30,7 +30,7 @@ digits = math.floor(logConditions) + 1
 print("\npossible conditions per pixel ** pixel")
 
 if digits <= 1000:
-    totalPossibleConditions = conditionsPerPixel ** totalPixels
+    totalPossibleConditions = conditionsPerPixel ** int(totalPixels)
     print("Total possible conditions:", round(totalPossibleConditions))
 
 else:
@@ -62,7 +62,7 @@ digits = math.floor(logTotalStorage) + 1
 print("\nsize * total possible conditions")
 
 if digits <= 1000:
-    totalStorage = terabytes * (2 ** bits)
+    totalStorage = terabytes * (2 ** int(bits))
     print("Total storage in TB:", round(totalStorage))
 else:
     print("Log10 of total terabytes:\t", logTotalStorage)
